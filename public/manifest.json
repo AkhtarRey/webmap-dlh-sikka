@@ -1,0 +1,21 @@
+{
+    "name": "WebMap DLH Sikka",
+    "short_name": "WebMap DLH Sikka",
+    "description": "Aplikasi Dinas Lingkungan Hidup Kabupaten Sikka",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#007bff",
+    "background_color": "#ffffff",
+    "icons": [
+      {
+        "src": "/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
