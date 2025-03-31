@@ -129,12 +129,39 @@ const Map = () => {
       navigator.geolocation.clearWatch(watchId);
       setWatchId(null);
       const driverRef = ref(rtdb, `drivers/${userData.username}`);
-      set(driverRef, null);
+      set(driverRef, null)
+        .then(() => {
+          setDrivers((prev) => {
+            const updatedDrivers = { ...prev };
+            delete updatedDrivers[userData.username];
+            return updatedDrivers;
+          });
+          console.log('Driver location removed from database and state');
+        })
+        .catch((error) => {
+          console.error('Error removing driver location:', error);
+        });
     }
     setIsLoggedIn(false);
     setUserData(null);
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userData');
+  
+    // Reload PWA untuk memastikan semua proses dihentikan
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration().then((registration) => {
+        if (registration) {
+          registration.unregister().then(() => {
+            console.log('Service worker unregistered');
+            window.location.reload(true); // Force reload tanpa cache
+          });
+        } else {
+          window.location.reload(true);
+        }
+      });
+    } else {
+      window.location.reload(true);
+    }
   };
 
   // Fungsi untuk melacak lokasi sopir
